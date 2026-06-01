@@ -53,8 +53,10 @@ app:
 
   # Email
   mail:
-    from: ${SMTP_FROM:noreply@telecomiq.com}
+    from: ${SMTP_FROM:onboarding@resend.dev}
     enabled: ${MAIL_ENABLED:true}
+  resend:
+    api-key: ${RESEND_API_KEY:}
 
 # Swagger
 springdoc:
