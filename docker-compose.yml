@@ -43,8 +43,9 @@ services:
       SMTP_PORT: ${SMTP_PORT:-587}
       SMTP_USERNAME: ${SMTP_USERNAME:-}
       SMTP_PASSWORD: ${SMTP_PASSWORD:-}
-      SMTP_FROM: ${SMTP_FROM:-noreply@telecomiq.com}
+      SMTP_FROM: ${SMTP_FROM:-onboarding@resend.dev}
       MAIL_ENABLED: ${MAIL_ENABLED:-false}
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
 
   # ===== FastAPI AI Service =====
   ai-service:
