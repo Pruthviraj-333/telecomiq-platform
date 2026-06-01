@@ -14,12 +14,10 @@ public class CorsConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of(
-                "http://localhost:4200",
-                "http://localhost:8081",
-                "http://localhost:8082",
-                "http://localhost:80",
-                "http://localhost"
+        configuration.setAllowedOriginPatterns(List.of(
+                "http://localhost:[*]",
+                "https://*.vercel.app",
+                "https://*.onrender.com"
         ));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         configuration.setAllowedHeaders(List.of("*"));
