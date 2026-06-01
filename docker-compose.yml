@@ -24,7 +24,7 @@ services:
   backend:
     build:
       context: ./telecomIQ_backend
-      dockerfile: ../docker/backend.Dockerfile
+      dockerfile: Dockerfile
     container_name: telecomiq-backend
     restart: unless-stopped
     ports:
@@ -50,7 +50,7 @@ services:
   ai-service:
     build:
       context: ./telecomIQ_ai_service
-      dockerfile: ../docker/ai-service.Dockerfile
+      dockerfile: Dockerfile
     container_name: telecomiq-ai
     restart: unless-stopped
     ports:
@@ -63,7 +63,7 @@ services:
   frontend:
     build:
       context: ./telecomIQ_frontend
-      dockerfile: ../docker/frontend.Dockerfile
+      dockerfile: Dockerfile
     container_name: telecomiq-frontend
     restart: unless-stopped
     ports:
