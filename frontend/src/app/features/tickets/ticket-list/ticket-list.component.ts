@@ -124,6 +124,14 @@ import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
             </td>
           </ng-container>
 
+          <ng-container matColumnDef="assignedEngineer">
+            <th mat-header-cell *matHeaderCellDef>Assignee</th>
+            <td mat-cell *matCellDef="let t">
+              <span class="assignee-text" *ngIf="t.assignedEngineerName">{{ t.assignedEngineerName }}</span>
+              <span class="assignee-empty" *ngIf="!t.assignedEngineerName">Unassigned</span>
+            </td>
+          </ng-container>
+
           <ng-container matColumnDef="createdAt">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Created</th>
             <td mat-cell *matCellDef="let t" class="date-cell">{{ t.createdAt | date:'MMM d, y' }}</td>
@@ -180,6 +188,9 @@ import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
     .confidence-badge.high { background: rgba(16,185,129,0.12); color: #10b981; }
     .confidence-badge.low { background: rgba(239,68,68,0.12); color: #ef4444; }
 
+    .assignee-text { font-weight: 500; color: var(--text-primary); }
+    .assignee-empty { color: var(--text-muted); font-style: italic; font-size: 0.85rem; }
+
     .clickable-row { cursor: pointer; transition: background var(--transition-fast); }
     .clickable-row:hover { background: rgba(255,255,255,0.03) !important; }
 
@@ -191,7 +202,7 @@ import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 })
 export class TicketListComponent implements OnInit {
   tickets: Ticket[] = [];
-  displayedColumns = ['id', 'title', 'category', 'priority', 'status', 'confidence', 'createdAt'];
+  displayedColumns = ['id', 'title', 'category', 'priority', 'status', 'confidence', 'assignedEngineer', 'createdAt'];
   loading = true;
   totalElements = 0;
   pageSize = 10;
