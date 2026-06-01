@@ -1,0 +1,64 @@
+<div class="admin-container fade-in">
+  <div class="page-header"><h1>Admin Panel</h1><p>Manage users, engineers, and platform settings</p></div>
+
+  <div *ngIf="loading" class="loading-container"><mat-spinner diameter="48"></mat-spinner></div>
+
+  <div *ngIf="!loading">
+    <div class="stats-row">
+      <div class="mini-stat glass-card"><mat-icon>people</mat-icon><div><span class="val">{{ users.length }}</span><span class="lbl">Total Users</span></div></div>
+      <div class="mini-stat glass-card"><mat-icon>engineering</mat-icon><div><span class="val">{{ engineers.length }}</span><span class="lbl">Engineers</span></div></div>
+      <div class="mini-stat glass-card"><mat-icon>person</mat-icon><div><span class="val">{{ customers.length }}</span><span class="lbl">Customers</span></div></div>
+    </div>
+
+    <mat-tab-group animationDuration="300ms">
+      <mat-tab label="All Users">
+        <div class="tab-content">
+          <div class="table-card glass-card">
+            <table mat-table [dataSource]="users">
+              <ng-container matColumnDef="id"><th mat-header-cell *matHeaderCellDef>ID</th><td mat-cell *matCellDef="let u">#{{ u.id }}</td></ng-container>
+              <ng-container matColumnDef="name"><th mat-header-cell *matHeaderCellDef>Name</th><td mat-cell *matCellDef="let u">{{ u.name }}</td></ng-container>
+              <ng-container matColumnDef="email"><th mat-header-cell *matHeaderCellDef>Email</th><td mat-cell *matCellDef="let u">{{ u.email }}</td></ng-container>
+              <ng-container matColumnDef="role"><th mat-header-cell *matHeaderCellDef>Role</th><td mat-cell *matCellDef="let u"><span class="role-chip" [ngClass]="u.role.toLowerCase()">{{ u.role }}</span></td></ng-container>
+              <ng-container matColumnDef="createdAt"><th mat-header-cell *matHeaderCellDef>Joined</th><td mat-cell *matCellDef="let u">{{ u.createdAt | date:'MMM d, y' }}</td></ng-container>
+              <ng-container matColumnDef="actions"><th mat-header-cell *matHeaderCellDef></th><td mat-cell *matCellDef="let u"><button mat-icon-button color="warn" (click)="deleteUser(u.id)"><mat-icon>delete</mat-icon></button></td></ng-container>
+              <tr mat-header-row *matHeaderRowDef="userColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: userColumns;"></tr>
+            </table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Engineers">
+        <div class="tab-content">
+          <div class="table-card glass-card">
+            <table mat-table [dataSource]="engineers">
+              <ng-container matColumnDef="id"><th mat-header-cell *matHeaderCellDef>ID</th><td mat-cell *matCellDef="let u">#{{ u.id }}</td></ng-container>
+              <ng-container matColumnDef="name"><th mat-header-cell *matHeaderCellDef>Name</th><td mat-cell *matCellDef="let u">{{ u.name }}</td></ng-container>
+              <ng-container matColumnDef="email"><th mat-header-cell *matHeaderCellDef>Email</th><td mat-cell *matCellDef="let u">{{ u.email }}</td></ng-container>
+              <ng-container matColumnDef="role"><th mat-header-cell *matHeaderCellDef>Role</th><td mat-cell *matCellDef="let u"><span class="role-chip engineer">ENGINEER</span></td></ng-container>
+              <ng-container matColumnDef="createdAt"><th mat-header-cell *matHeaderCellDef>Joined</th><td mat-cell *matCellDef="let u">{{ u.createdAt | date:'MMM d, y' }}</td></ng-container>
+              <ng-container matColumnDef="actions"><th mat-header-cell *matHeaderCellDef></th><td mat-cell *matCellDef="let u"><button mat-icon-button color="warn" (click)="deleteUser(u.id)"><mat-icon>delete</mat-icon></button></td></ng-container>
+              <tr mat-header-row *matHeaderRowDef="userColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: userColumns;"></tr>
+            </table>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Customers">
+        <div class="tab-content">
+          <div class="table-card glass-card">
+            <table mat-table [dataSource]="customers">
+              <ng-container matColumnDef="id"><th mat-header-cell *matHeaderCellDef>ID</th><td mat-cell *matCellDef="let u">#{{ u.id }}</td></ng-container>
+              <ng-container matColumnDef="name"><th mat-header-cell *matHeaderCellDef>Name</th><td mat-cell *matCellDef="let u">{{ u.name }}</td></ng-container>
+              <ng-container matColumnDef="email"><th mat-header-cell *matHeaderCellDef>Email</th><td mat-cell *matCellDef="let u">{{ u.email }}</td></ng-container>
+              <ng-container matColumnDef="role"><th mat-header-cell *matHeaderCellDef>Role</th><td mat-cell *matCellDef="let u"><span class="role-chip customer">CUSTOMER</span></td></ng-container>
+              <ng-container matColumnDef="createdAt"><th mat-header-cell *matHeaderCellDef>Joined</th><td mat-cell *matCellDef="let u">{{ u.createdAt | date:'MMM d, y' }}</td></ng-container>
+              <ng-container matColumnDef="actions"><th mat-header-cell *matHeaderCellDef></th><td mat-cell *matCellDef="let u"><button mat-icon-button color="warn" (click)="deleteUser(u.id)"><mat-icon>delete</mat-icon></button></td></ng-container>
+              <tr mat-header-row *matHeaderRowDef="userColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: userColumns;"></tr>
+            </table>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="create-container fade-in">
+  <div class="page-header">
+    <h1>Create Support Ticket</h1>
+    <p>Describe your issue and our AI will analyze it instantly</p>
+  </div>
+
+  <div class="form-card glass-card" *ngIf="!createdTicket">
+    <form (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline">
+        <mat-label>Ticket Title</mat-label>
+        <input matInput [(ngModel)]="title" name="title" required placeholder="e.g., Internet dropping every 30 min" id="ticket-title">
+        <mat-icon matPrefix>title</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput [(ngModel)]="description" name="description" required rows="6" placeholder="Describe the issue in detail..." id="ticket-description"></textarea>
+        <mat-icon matPrefix>description</mat-icon>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit" [disabled]="submitting || !title || !description" class="submit-btn" id="submit-ticket">
+        <mat-spinner *ngIf="submitting" diameter="20"></mat-spinner>
+        <mat-icon *ngIf="!submitting">auto_awesome</mat-icon>
+        <span>{{ submitting ? 'AI analyzing...' : 'Submit & Analyze with AI' }}</span>
+      </button>
+    </form>
+  </div>
+
+  <div class="results-container" *ngIf="createdTicket">
+    <div class="success-banner glass-card slide-in">
+      <mat-icon class="success-icon">check_circle</mat-icon>
+      <div>
+        <h2>Ticket #{{ createdTicket.id }} Created</h2>
+        <p>AI has analyzed your ticket</p>
+      </div>
+    </div>
+
+    <div class="results-grid">
+      <div class="result-card glass-card"><div class="result-header"><mat-icon>category</mat-icon><h3>Category</h3></div><div class="result-value">{{ createdTicket.category?.replace('_',' ') }}</div></div>
+      <div class="result-card glass-card"><div class="result-header"><mat-icon>flag</mat-icon><h3>Priority</h3></div><span class="priority-badge" [ngClass]="createdTicket.priority?.toLowerCase()">{{ createdTicket.priority }}</span></div>
+      <div class="result-card glass-card"><div class="result-header"><mat-icon>psychology</mat-icon><h3>AI Confidence</h3></div><span class="confidence-value" [class.high]="createdTicket.aiConfidenceScore >= 70" [class.low]="createdTicket.aiConfidenceScore < 70">{{ createdTicket.aiConfidenceScore }}%</span></div>
+      <div class="result-card glass-card"><div class="result-header"><mat-icon>info</mat-icon><h3>Status</h3></div><span class="status-badge" [ngClass]="createdTicket.status?.toLowerCase()">{{ createdTicket.status?.replace('_',' ') }}</span></div>
+    </div>
+
+    <div class="resolution-card glass-card slide-in">
+      <div class="result-header"><mat-icon>auto_awesome</mat-icon><h3>AI-Generated Resolution</h3></div>
+      <div class="resolution-content"><pre>{{ createdTicket.aiResolution }}</pre></div>
+      <mat-divider></mat-divider>
+      <div class="resolution-actions">
+        <button mat-raised-button color="primary" (click)="router.navigate(['/tickets', createdTicket.id])"><mat-icon>visibility</mat-icon> View Ticket</button>
+        <button mat-stroked-button color="warn" (click)="escalateTicket()" *ngIf="!createdTicket.escalated"><mat-icon>warning</mat-icon> AI Solution Didn't Help</button>
+        <button mat-stroked-button (click)="createAnother()"><mat-icon>add</mat-icon> Create Another</button>
+      </div>
+    </div>
+  </div>
+</div>

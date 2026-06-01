@@ -1,0 +1,61 @@
+=== TELECOM AUTHENTICATION ISSUES - KNOWLEDGE BASE ===
+
+--- Password Reset ---
+Issue: Customer unable to log in due to forgotten password.
+Resolution Steps:
+1. Verify customer identity through security questions or registered email/phone.
+2. Confirm the account is not locked due to multiple failed attempts.
+3. Guide customer through the self-service password reset portal.
+4. If self-service is unavailable, initiate manual password reset from admin portal.
+5. Generate temporary password and communicate securely to the customer.
+6. Require password change on first login after reset.
+7. Advise customer on password best practices (length, complexity, no reuse).
+8. Document the password reset in the account activity log.
+
+--- Two-Factor Authentication (2FA) Issues ---
+Issue: Customer locked out due to 2FA code not being received or device change.
+Resolution Steps:
+1. Verify customer identity through alternative verification methods.
+2. Check if SMS-based 2FA is failing due to network issues or number change.
+3. If authenticator app, check if the customer's device clock is synchronized.
+4. Provide backup/recovery codes if previously generated and stored.
+5. If device was lost/changed, disable current 2FA and set up on new device.
+6. For enterprise accounts, coordinate with IT admin for 2FA reset.
+7. Re-enable 2FA and confirm the customer can generate valid codes.
+8. Recommend the customer save backup codes in a secure location.
+
+--- Account Lockout ---
+Issue: Customer account locked after multiple failed login attempts.
+Resolution Steps:
+1. Verify customer identity through registered email or phone verification.
+2. Check the lockout reason in the security logs (brute force, wrong password, suspicious activity).
+3. If legitimate user, unlock the account from the admin panel.
+4. Reset the failed login attempt counter.
+5. If suspicious activity detected, review login history for unauthorized access.
+6. Change password and revoke any active sessions if compromise suspected.
+7. Enable additional security measures (2FA, login notifications).
+8. Advise customer to check for malware on their devices if account was compromised.
+
+--- SIM Card Authentication Failure ---
+Issue: Customer's SIM card not authenticating with the network.
+Resolution Steps:
+1. Ask customer to remove and reinsert the SIM card properly.
+2. Try the SIM card in another compatible device to isolate SIM vs device issue.
+3. Check if the SIM card is activated in the system.
+4. Verify the SIM card hasn't been reported lost/stolen (which would deactivate it).
+5. Check for any SIM swap requests that may have been processed.
+6. If SIM is damaged, issue a replacement SIM with the same number.
+7. For eSIM issues, reprovision the eSIM profile through the activation portal.
+8. Escalate to fraud team if unauthorized SIM swap is suspected.
+
+--- Customer Portal Access ---
+Issue: Customer unable to access the self-service web portal.
+Resolution Steps:
+1. Verify the customer is using the correct portal URL.
+2. Check if the portal is experiencing any known outages.
+3. Clear browser cache and cookies, then retry.
+4. Try accessing from a different browser or incognito/private mode.
+5. Verify the customer's email address matches the registered account email.
+6. Check if the account has portal access enabled in the system.
+7. Reset portal credentials separately from service credentials if needed.
+8. If persistent, check for IP-based restrictions or regional access blocks.

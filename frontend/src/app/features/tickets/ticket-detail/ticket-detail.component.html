@@ -1,0 +1,90 @@
+<div class="detail-container fade-in" *ngIf="!loading && ticket">
+  <div class="page-header">
+    <button mat-icon-button (click)="router.navigate(['/tickets'])" class="back-btn"><mat-icon>arrow_back</mat-icon></button>
+    <div>
+      <h1>Ticket #{{ ticket.id }}</h1>
+      <p>Created {{ ticket.createdAt | date:'MMM d, y, h:mm a' }}</p>
+    </div>
+    <span class="status-badge" [ngClass]="ticket.status?.toLowerCase()">{{ ticket.status?.replace('_', ' ') }}</span>
+  </div>
+
+  <div class="detail-grid">
+    <!-- Main Info -->
+    <div class="main-col">
+      <div class="info-card glass-card">
+        <h2>{{ ticket.title }}</h2>
+        <p class="description">{{ ticket.description }}</p>
+        <div class="meta-chips">
+          <span class="priority-badge" [ngClass]="ticket.priority?.toLowerCase()" *ngIf="ticket.priority">{{ ticket.priority }}</span>
+          <span class="category-chip" *ngIf="ticket.category">{{ ticket.category.replace('_', ' ') }}</span>
+          <span class="confidence-chip" *ngIf="ticket.aiConfidenceScore" [class.low]="ticket.aiConfidenceScore < 70">AI: {{ ticket.aiConfidenceScore }}%</span>
+        </div>
+      </div>
+
+      <!-- AI Resolution -->
+      <div class="resolution-card glass-card" *ngIf="ticket.aiResolution">
+        <h3><mat-icon>auto_awesome</mat-icon> AI Resolution</h3>
+        <pre>{{ ticket.aiResolution }}</pre>
+        <button mat-stroked-button color="warn" (click)="escalate()" *ngIf="!ticket.escalated && authService.isCustomer()">
+          <mat-icon>warning</mat-icon> AI Solution Didn't Help
+        </button>
+      </div>
+
+      <!-- Comments -->
+      <div class="comments-card glass-card">
+        <h3><mat-icon>forum</mat-icon> Comments ({{ comments.length }})</h3>
+        <div class="comment-input">
+          <mat-form-field appearance="outline">
+            <mat-label>Add a comment</mat-label>
+            <textarea matInput [(ngModel)]="newComment" rows="3"></textarea>
+          </mat-form-field>
+          <button mat-raised-button color="primary" (click)="addComment()" [disabled]="!newComment.trim()">
+            <mat-icon>send</mat-icon> Post
+          </button>
+        </div>
+        <div class="comment-list">
+          <div class="comment-item" *ngFor="let c of comments">
+            <div class="comment-avatar">{{ c.userName?.charAt(0) }}</div>
+            <div class="comment-body">
+              <div class="comment-meta">
+                <span class="comment-author">{{ c.userName }}</span>
+                <span class="comment-role">{{ c.userRole }}</span>
+                <span class="comment-time">{{ getTimeAgo(c.createdAt) }}</span>
+              </div>
+              <p>{{ c.comment }}</p>
+            </div>
+          </div>
+          <div class="empty-comments" *ngIf="comments.length === 0">No comments yet</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Side Info -->
+    <div class="side-col">
+      <div class="side-card glass-card">
+        <h4>Details</h4>
+        <div class="detail-row"><span>Customer</span><span>{{ ticket.customerName }}</span></div>
+        <div class="detail-row"><span>Engineer</span><span>{{ ticket.assignedEngineerName || 'Unassigned' }}</span></div>
+        <div class="detail-row"><span>Escalated</span><span>{{ ticket.escalated ? 'Yes' : 'No' }}</span></div>
+        <div class="detail-row" *ngIf="ticket.escalationReason"><span>Reason</span><span class="reason">{{ ticket.escalationReason }}</span></div>
+        <div class="detail-row" *ngIf="ticket.resolvedBy"><span>Resolved By</span><span>{{ ticket.resolvedBy }}</span></div>
+        <div class="detail-row"><span>Updated</span><span>{{ ticket.updatedAt | date:'short' }}</span></div>
+      </div>
+
+      <!-- Status Update (Engineer/Admin) -->
+      <div class="side-card glass-card" *ngIf="authService.isEngineer() || authService.isAdmin()">
+        <h4>Update Status</h4>
+        <mat-form-field appearance="outline">
+          <mat-select [(ngModel)]="newStatus">
+            <mat-option value="IN_PROGRESS">In Progress</mat-option>
+            <mat-option value="RESOLVED">Resolved</mat-option>
+            <mat-option value="CLOSED">Closed</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="updateStatus()" [disabled]="newStatus === ticket.status">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loading" class="loading-container"><mat-spinner diameter="48"></mat-spinner></div>

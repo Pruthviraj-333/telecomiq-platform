@@ -1,0 +1,72 @@
+=== TELECOM NETWORK ISSUES - KNOWLEDGE BASE ===
+
+--- Router and Modem Troubleshooting ---
+Issue: Customer reports no internet connectivity through home router or modem.
+Resolution Steps:
+1. Verify physical cable connections - check WAN port, LAN ports, and power cable.
+2. Check LED indicator lights on the modem/router. Solid green indicates normal operation. Flashing or red indicates an issue.
+3. Power cycle the modem and router: unplug power, wait 30 seconds, plug modem first, wait 2 minutes, then plug router.
+4. Check if the issue is device-specific by connecting another device to the network.
+5. Run a speed test from a wired connection to isolate WiFi vs wired issues.
+6. Check for firmware updates on the router admin panel (typically 192.168.1.1 or 192.168.0.1).
+7. Reset router to factory defaults if configuration is corrupted (hold reset button for 10 seconds).
+8. If unresolved, escalate to Network Operations Center (NOC) for line-level diagnostics.
+
+--- DNS Resolution Failures ---
+Issue: Websites not loading but ping to IP addresses works.
+Resolution Steps:
+1. Open command prompt and run: nslookup google.com
+2. If DNS fails, try changing DNS servers to 8.8.8.8 (Google) or 1.1.1.1 (Cloudflare).
+3. Flush DNS cache: ipconfig /flushdns (Windows) or sudo dscacheutil -flushcache (Mac).
+4. Check if the issue is specific to certain domains or all domains.
+5. Verify DNS settings in router configuration panel.
+6. Contact ISP to check if their DNS servers are experiencing issues.
+7. If corporate network, check internal DNS server health and zone configurations.
+
+--- Network Latency and Slow Speeds ---
+Issue: Customer experiencing slow internet speeds or high latency.
+Resolution Steps:
+1. Run speed test at speedtest.net from a wired connection to establish baseline.
+2. Compare results with the customer's subscribed plan speed.
+3. Check for network congestion during peak hours (typically 7-11 PM).
+4. Run traceroute to identify where latency is introduced: tracert <destination> (Windows).
+5. Check for background applications consuming bandwidth (Windows: Task Manager > Network).
+6. Inspect for interference on WiFi channels - use WiFi analyzer app to find less congested channels.
+7. Check modem signal levels (SNR should be >30dB, power level between -7 to +7 dBmV).
+8. If line quality is poor, dispatch field technician for line testing.
+
+--- Cell Tower and Mobile Network Outage ---
+Issue: Customer reports no mobile signal or dropped calls in specific area.
+Resolution Steps:
+1. Verify the outage area and check network status map for known tower outages.
+2. Ask customer to toggle Airplane Mode on/off to force network re-registration.
+3. Check if the issue affects all carriers or just ours (indicates tower vs device issue).
+4. Verify SIM card is properly seated - remove and reinsert.
+5. Check device network settings: ensure correct network mode (4G/5G) and not restricted to manual selection.
+6. Run network diagnostics: dial *#*#4636#*#* on Android for signal strength readings.
+7. If tower outage confirmed, provide estimated restoration time and advise customer.
+8. Escalate to RF Engineering team if persistent coverage gap identified.
+
+--- VPN Connectivity Issues ---
+Issue: Customer unable to establish VPN connection for remote work.
+Resolution Steps:
+1. Verify VPN client version is up to date.
+2. Check if the customer can reach the VPN gateway: ping vpn.company.com
+3. Verify credentials and certificates have not expired.
+4. Check if ISP is blocking VPN ports (common ports: 443, 1194, 500, 4500).
+5. Try switching VPN protocol (IKEv2, OpenVPN, WireGuard).
+6. Disable local firewall temporarily to test if it's blocking VPN traffic.
+7. If behind NAT, ensure NAT-Traversal is enabled in VPN settings.
+8. Escalate to IT Security team if authentication server issues suspected.
+
+--- Fiber Optic Connectivity ---
+Issue: Fiber connection drops intermittently or shows low signal.
+Resolution Steps:
+1. Check Optical Network Terminal (ONT) lights - PON light should be solid green.
+2. Inspect fiber cable for visible damage, sharp bends, or kinks.
+3. Clean fiber connectors with proper cleaning tools (IPA wipes).
+4. Check optical power levels using ONT diagnostics (acceptable range: -8 to -28 dBm).
+5. Verify no furniture or objects are pressing against fiber cables.
+6. Restart ONT by removing power, waiting 30 seconds, and reconnecting.
+7. If optical power is out of range, dispatch fiber technician for splice testing.
+8. Check for area-wide fiber cuts or construction activity affecting the line.

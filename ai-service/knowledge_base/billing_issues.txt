@@ -1,0 +1,61 @@
+=== TELECOM BILLING ISSUES - KNOWLEDGE BASE ===
+
+--- Overcharge Investigation ---
+Issue: Customer reports charges higher than expected on their monthly bill.
+Resolution Steps:
+1. Pull up the customer's billing statement for the disputed period.
+2. Compare charges against the customer's current plan details and pricing.
+3. Check for any overage charges (data, international calls, premium SMS).
+4. Verify if any promotional discounts have expired.
+5. Check for any add-on services that may have been activated (insurance, cloud storage).
+6. Review call/data usage records for any anomalous activity.
+7. If overcharge confirmed, initiate credit/adjustment process through billing system.
+8. Document the adjustment reason and update customer account notes.
+
+--- Plan Change and Upgrade Requests ---
+Issue: Customer wants to change or upgrade their current service plan.
+Resolution Steps:
+1. Review customer's current plan details and contract terms.
+2. Check if the customer is under a contract with early termination fees.
+3. Present available plan options that match the customer's usage patterns.
+4. Explain any prorated charges for mid-cycle plan changes.
+5. Process the plan change in the billing system with effective date.
+6. Confirm the new plan details with the customer (price, data limits, features).
+7. Send confirmation email/SMS with new plan summary.
+8. Set follow-up reminder to check customer satisfaction after first billing cycle.
+
+--- Refund Processing ---
+Issue: Customer requests a refund for a billing error or service outage.
+Resolution Steps:
+1. Verify the refund eligibility based on company refund policy.
+2. Calculate the refund amount based on the service disruption period or billing error.
+3. Check if a credit note can be applied to the next billing cycle instead.
+4. Process the refund through the approved refund workflow.
+5. Provide the customer with a refund reference number and expected timeline.
+6. For credit card refunds, inform customer it may take 5-10 business days.
+7. Document the refund reason in the customer's account history.
+8. Escalate to billing supervisor if refund exceeds authorized limit.
+
+--- Invoice Discrepancy ---
+Issue: Customer's invoice shows charges that don't match their usage or plan.
+Resolution Steps:
+1. Download the detailed invoice and itemized call/data records.
+2. Cross-reference each line item with the customer's plan allowances.
+3. Check for any third-party charges (premium content, app subscriptions).
+4. Verify tax calculations are correct for the customer's region.
+5. Check for any partial month charges due to service changes.
+6. If discrepancy found, generate a corrected invoice.
+7. Explain each charge to the customer for transparency.
+8. Set up billing alerts if available to prevent future surprises.
+
+--- Autopay Issues ---
+Issue: Customer's automatic payment failed or was charged incorrectly.
+Resolution Steps:
+1. Check the autopay configuration in the billing system.
+2. Verify the payment method on file (card expiry, bank account status).
+3. Check for any declined transaction records and decline reason codes.
+4. If card expired, request updated payment information from customer.
+5. Verify the autopay amount matches the expected billing amount.
+6. Re-process the payment if it was a temporary bank/card issue.
+7. Waive any late payment fees if the failure was on our system's side.
+8. Recommend the customer set up backup payment method to avoid future issues.

@@ -1,0 +1,33 @@
+name: AI Service CI
+
+on:
+  push:
+    branches: [main]
+    paths: ['ai-service/**']
+  pull_request:
+    branches: [main]
+    paths: ['ai-service/**']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: ai-service/requirements.txt
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+        working-directory: ai-service
+
+      - name: Dependency Security Check
+        run: pip audit || true
+        working-directory: ai-service
+
+      - name: Build Docker Image
+        run: docker build -f docker/ai-service.Dockerfile -t telecomiq-ai:${{ github.sha }} ./ai-service

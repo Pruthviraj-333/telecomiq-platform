@@ -1,0 +1,51 @@
+# =========================
+# Java / Spring Boot
+# =========================
+backend/target/
+backend/*.jar
+backend/.mvn/wrapper/maven-wrapper.jar
+
+# =========================
+# Node / Angular
+# =========================
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/.sass-cache/
+
+# =========================
+# Python / FastAPI
+# =========================
+ai-service/__pycache__/
+ai-service/*.pyc
+ai-service/.venv/
+ai-service/venv/
+ai-service/faiss_index/
+ai-service/.pytest_cache/
+
+# =========================
+# Environment & Secrets
+# =========================
+.env
+*.env.local
+*.env.production
+
+# =========================
+# IDE
+# =========================
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+
+# =========================
+# Docker
+# =========================
+docker/postgres_data/
+
+# =========================
+# OS
+# =========================
+.DS_Store
+Thumbs.db

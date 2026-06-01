@@ -1,0 +1,61 @@
+=== TELECOM HARDWARE ISSUES - KNOWLEDGE BASE ===
+
+--- Router/Modem Replacement (RMA) ---
+Issue: Customer's router or modem is malfunctioning and needs replacement.
+Resolution Steps:
+1. Confirm the hardware fault through remote diagnostics.
+2. Check warranty status and determine if replacement is free or chargeable.
+3. Verify the device model and check compatible replacement options.
+4. Initiate Return Merchandise Authorization (RMA) process.
+5. Arrange shipping of replacement device with pre-configured settings.
+6. Provide customer with tracking number and expected delivery date.
+7. Guide customer through setup of replacement device or schedule technician visit.
+8. Arrange collection of defective device within 14 days of replacement delivery.
+
+--- SIM Card Replacement ---
+Issue: Customer's SIM card is damaged, lost, or needs upgrade (e.g., to nano-SIM).
+Resolution Steps:
+1. Verify customer identity through account verification process.
+2. If SIM is lost/stolen, immediately deactivate the old SIM to prevent misuse.
+3. Determine the required SIM size (standard, micro, nano, or eSIM).
+4. Issue new SIM card with the customer's existing phone number.
+5. Activate the new SIM and deactivate the old one in the provisioning system.
+6. Inform customer about any SIM replacement charges.
+7. Test the new SIM by making a call and verifying data connectivity.
+8. Update account records with the new SIM (ICCID) number.
+
+--- Set-Top Box Troubleshooting ---
+Issue: Customer's TV set-top box is not working properly.
+Resolution Steps:
+1. Check HDMI/AV cable connections between set-top box and TV.
+2. Verify the TV is set to the correct input/source.
+3. Power cycle the set-top box: unplug for 30 seconds, then reconnect.
+4. Check if the remote control batteries need replacement.
+5. Verify the set-top box software is up to date (check for OTA updates).
+6. Reset the set-top box to factory defaults if persistent issues.
+7. Check the coaxial/ethernet cable connection to the set-top box.
+8. If hardware fault confirmed, initiate RMA replacement process.
+
+--- Fiber ONT (Optical Network Terminal) Diagnostics ---
+Issue: Fiber ONT device showing error indicators or not functioning.
+Resolution Steps:
+1. Check all LED indicators: Power (solid green), PON (solid green), LAN (blinking = active).
+2. If PON light is off or red, the fiber connection to the central office may be broken.
+3. Check fiber cable for any visible damage, especially at entry points.
+4. Power cycle the ONT: unplug, wait 60 seconds, reconnect.
+5. Check optical power levels through ONT web interface (usually 192.168.1.1).
+6. Acceptable RX power range: -8 dBm to -28 dBm. Below -28 dBm indicates a fiber issue.
+7. If ONT is unresponsive, try factory reset using the pinhole reset button.
+8. Dispatch fiber technician if optical levels are out of range or ONT hardware failure confirmed.
+
+--- Device Compatibility Check ---
+Issue: Customer's device is not working properly on the network.
+Resolution Steps:
+1. Verify device IMEI through the system: dial *#06# on the device.
+2. Check if the device supports the required network bands (4G LTE / 5G NR).
+3. Verify the device is not blacklisted (IMEI check against GSMA database).
+4. Ensure the device is carrier-unlocked or locked to our network.
+5. Check APN settings: verify Access Point Name configuration matches network requirements.
+6. For VoLTE/VoWiFi, verify device compatibility and enable in device settings.
+7. Update device firmware/software to the latest version.
+8. If device is incompatible, recommend compatible alternatives from our device catalog.

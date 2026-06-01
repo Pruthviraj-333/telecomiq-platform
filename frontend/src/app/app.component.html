@@ -1,0 +1,13 @@
+<div class="app-container" *ngIf="authService.isLoggedIn(); else authLayout">
+  <app-navbar (toggleSidebar)="toggleSidebar()"></app-navbar>
+  <div class="app-body">
+    <app-sidebar [isOpen]="sidebarOpen"></app-sidebar>
+    <main class="main-content" [class.sidebar-collapsed]="!sidebarOpen">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
+
+<ng-template #authLayout>
+  <router-outlet></router-outlet>
+</ng-template>

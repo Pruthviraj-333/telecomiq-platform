@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  # ===== PostgreSQL Database =====
+  postgres:
+    image: postgres:16-alpine
+    container_name: telecomiq-db
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-telecomiq}
+      POSTGRES_USER: ${POSTGRES_USER:-telecomiq_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-telecomiq_pass_2024}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER:-telecomiq_user} -d $${POSTGRES_DB:-telecomiq}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ===== Spring Boot Backend =====
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ../docker/backend.Dockerfile
+    container_name: telecomiq-backend
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-telecomiq}
+      DB_USERNAME: ${POSTGRES_USER:-telecomiq_user}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-telecomiq_pass_2024}
+      JWT_SECRET: ${JWT_SECRET:-ZGVmYXVsdC1zZWNyZXQta2V5LWZvci1kZXYtb25seS1jaGFuZ2UtaW4tcHJvZA==}
+      JWT_EXPIRATION: ${JWT_EXPIRATION:-86400000}
+      AI_SERVICE_URL: http://ai-service:8000
+      SMTP_HOST: ${SMTP_HOST:-smtp.gmail.com}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USERNAME: ${SMTP_USERNAME:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      SMTP_FROM: ${SMTP_FROM:-noreply@telecomiq.com}
+      MAIL_ENABLED: ${MAIL_ENABLED:-false}
+
+  # ===== FastAPI AI Service =====
+  ai-service:
+    build:
+      context: ./ai-service
+      dockerfile: ../docker/ai-service.Dockerfile
+    container_name: telecomiq-ai
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      GROQ_API_KEY: ${GROQ_API_KEY}
+      GROQ_MODEL: ${GROQ_MODEL:-llama-3.3-70b-versatile}
+
+  # ===== Angular Frontend =====
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../docker/frontend.Dockerfile
+    container_name: telecomiq-frontend
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
