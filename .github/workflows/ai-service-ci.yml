@@ -3,10 +3,10 @@ name: AI Service CI
 on:
   push:
     branches: [main]
-    paths: ['ai-service/**']
+    paths: ['telecomIQ_ai_service/**']
   pull_request:
     branches: [main]
-    paths: ['ai-service/**']
+    paths: ['telecomIQ_ai_service/**']
 
 jobs:
   build:
@@ -19,15 +19,16 @@ jobs:
         with:
           python-version: '3.11'
           cache: 'pip'
-          cache-dependency-path: ai-service/requirements.txt
+          cache-dependency-path: telecomIQ_ai_service/requirements.txt
 
       - name: Install Dependencies
         run: pip install -r requirements.txt
-        working-directory: ai-service
+        working-directory: telecomIQ_ai_service
 
       - name: Dependency Security Check
         run: pip audit || true
-        working-directory: ai-service
+        working-directory: telecomIQ_ai_service
 
       - name: Build Docker Image
-        run: docker build -f docker/ai-service.Dockerfile -t telecomiq-ai:${{ github.sha }} ./ai-service
+        run: docker build -f docker/ai-service.Dockerfile -t telecomiq-ai:${{ github.sha }} ./telecomIQ_ai_service
+

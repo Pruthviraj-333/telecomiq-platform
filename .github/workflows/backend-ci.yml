@@ -3,10 +3,10 @@ name: Backend CI
 on:
   push:
     branches: [main]
-    paths: ['backend/**']
+    paths: ['telecomIQ_backend/**']
   pull_request:
     branches: [main]
-    paths: ['backend/**']
+    paths: ['telecomIQ_backend/**']
 
 jobs:
   build:
@@ -23,11 +23,12 @@ jobs:
 
       - name: Build with Maven
         run: mvn clean package -DskipTests -B
-        working-directory: backend
+        working-directory: telecomIQ_backend
 
       - name: Run Tests
         run: mvn test -B
-        working-directory: backend
+        working-directory: telecomIQ_backend
 
       - name: Build Docker Image
-        run: docker build -f docker/backend.Dockerfile -t telecomiq-backend:${{ github.sha }} ./backend
+        run: docker build -f docker/backend.Dockerfile -t telecomiq-backend:${{ github.sha }} ./telecomIQ_backend
+

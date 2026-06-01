@@ -1,27 +1,27 @@
 # =========================
 # Java / Spring Boot
 # =========================
-backend/target/
-backend/*.jar
-backend/.mvn/wrapper/maven-wrapper.jar
+telecomIQ_backend/target/
+telecomIQ_backend/*.jar
+telecomIQ_backend/.mvn/wrapper/maven-wrapper.jar
 
 # =========================
 # Node / Angular
 # =========================
-frontend/node_modules/
-frontend/dist/
-frontend/.angular/
-frontend/.sass-cache/
+telecomIQ_frontend/node_modules/
+telecomIQ_frontend/dist/
+telecomIQ_frontend/.angular/
+telecomIQ_frontend/.sass-cache/
 
 # =========================
 # Python / FastAPI
 # =========================
-ai-service/__pycache__/
-ai-service/*.pyc
-ai-service/.venv/
-ai-service/venv/
-ai-service/faiss_index/
-ai-service/.pytest_cache/
+telecomIQ_ai_service/__pycache__/
+telecomIQ_ai_service/*.pyc
+telecomIQ_ai_service/.venv/
+telecomIQ_ai_service/venv/
+telecomIQ_ai_service/faiss_index/
+telecomIQ_ai_service/.pytest_cache/
 
 # =========================
 # Environment & Secrets
