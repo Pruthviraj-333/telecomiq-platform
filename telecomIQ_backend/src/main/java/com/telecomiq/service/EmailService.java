@@ -39,11 +39,12 @@ public class EmailService {
             helper.setText(htmlContent, true);
             mailSender.send(message);
             log.info("Email sent successfully to={}, subject={}", to, subject);
-        } catch (MessagingException e) {
+        } catch (Exception e) {
             log.error("Failed to send email to={}, subject={}: {}", to, subject, e.getMessage());
         }
     }
 
+    @Async
     public void sendTicketCreatedEmail(String to, String ticketTitle, Long ticketId) {
         String subject = "[TelecomIQ] Ticket #" + ticketId + " Created";
         String html = buildEmailTemplate(
@@ -56,6 +57,7 @@ public class EmailService {
         sendEmail(to, subject, html);
     }
 
+    @Async
     public void sendEscalationEmail(String to, String ticketTitle, Long ticketId, String reason) {
         String subject = "[TelecomIQ] ⚠️ Ticket #" + ticketId + " Escalated";
         String html = buildEmailTemplate(
@@ -69,6 +71,7 @@ public class EmailService {
         sendEmail(to, subject, html);
     }
 
+    @Async
     public void sendCriticalTicketEmail(String to, String ticketTitle, Long ticketId) {
         String subject = "[TelecomIQ] 🚨 CRITICAL Ticket #" + ticketId + " Created";
         String html = buildEmailTemplate(
@@ -82,6 +85,7 @@ public class EmailService {
         sendEmail(to, subject, html);
     }
 
+    @Async
     public void sendEngineerAssignedEmail(String to, String engineerName, String ticketTitle, Long ticketId) {
         String subject = "[TelecomIQ] Ticket #" + ticketId + " Assigned to You";
         String html = buildEmailTemplate(
@@ -94,6 +98,7 @@ public class EmailService {
         sendEmail(to, subject, html);
     }
 
+    @Async
     public void sendTicketResolvedEmail(String to, String ticketTitle, Long ticketId) {
         String subject = "[TelecomIQ] ✅ Ticket #" + ticketId + " Resolved";
         String html = buildEmailTemplate(
