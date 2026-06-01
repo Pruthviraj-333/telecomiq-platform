@@ -42,7 +42,7 @@ export class TicketService {
     return this.http.get<Ticket>(`${this.apiUrl}/${id}`);
   }
 
-  updateTicket(id: number, update: { status?: string; resolvedBy?: string }): Observable<Ticket> {
+  updateTicket(id: number, update: { status?: string; resolvedBy?: string; assignedEngineerId?: number | null }): Observable<Ticket> {
     return this.http.put<Ticket>(`${this.apiUrl}/${id}`, update);
   }
 

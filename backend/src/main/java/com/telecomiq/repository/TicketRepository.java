@@ -20,6 +20,8 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
     Page<Ticket> findByAssignedEngineerId(Long engineerId, Pageable pageable);
 
+    long countByAssignedEngineerId(Long engineerId);
+
     List<Ticket> findByStatus(TicketStatus status);
 
     long countByStatus(TicketStatus status);

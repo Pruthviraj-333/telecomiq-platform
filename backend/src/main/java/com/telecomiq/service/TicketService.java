@@ -12,6 +12,8 @@ import com.telecomiq.enums.TicketStatus;
 import com.telecomiq.exception.BadRequestException;
 import com.telecomiq.exception.ResourceNotFoundException;
 import com.telecomiq.repository.TicketRepository;
+import com.telecomiq.repository.UserRepository;
+import com.telecomiq.enums.Role;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -25,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class TicketService {
 
     private final TicketRepository ticketRepository;
+    private final UserRepository userRepository;
     private final AiService aiService;
     private final EscalationService escalationService;
     private final EmailService emailService;
@@ -160,6 +163,23 @@ public class TicketService {
 
         if (request.getResolvedBy() != null) {
             ticket.setResolvedBy(request.getResolvedBy());
+        }
+
+        if (request.getAssignedEngineerId() != null) {
+            User engineer = userRepository.findById(request.getAssignedEngineerId())
+                    .orElseThrow(() -> new ResourceNotFoundException("User", request.getAssignedEngineerId()));
+            if (engineer.getRole() != Role.ENGINEER && engineer.getRole() != Role.ADMIN) {
+                throw new BadRequestException("Selected user is not an engineer or admin");
+            }
+            ticket.setAssignedEngineer(engineer);
+            emailService.sendEngineerAssignedEmail(
+                    engineer.getEmail(),
+                    engineer.getName(),
+                    ticket.getTitle(),
+                    ticket.getId()
+            );
+            auditLogService.log("TICKET_ASSIGNED", user.getEmail(),
+                    "Ticket #" + id + " manually assigned/reassigned to: " + engineer.getName());
         }
 
         ticket = ticketRepository.save(ticket);

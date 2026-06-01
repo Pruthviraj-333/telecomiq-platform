@@ -83,6 +83,19 @@
         </mat-form-field>
         <button mat-raised-button color="primary" (click)="updateStatus()" [disabled]="newStatus === ticket.status">Update</button>
       </div>
+
+      <!-- Assign/Reassign Engineer (Admin Only) -->
+      <div class="side-card glass-card" *ngIf="authService.isAdmin()">
+        <h4>Assign Engineer</h4>
+        <mat-form-field appearance="outline">
+          <mat-select [(ngModel)]="selectedEngineerId" placeholder="Select Engineer">
+            <mat-option *ngFor="let eng of engineers" [value]="eng.id">
+              {{ eng.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-raised-button color="accent" (click)="assignEngineer()" [disabled]="!selectedEngineerId || selectedEngineerId === ticket.assignedEngineerId">Assign</button>
+      </div>
     </div>
   </div>
 </div>

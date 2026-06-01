@@ -121,8 +121,7 @@ public class EscalationService {
         long minCount = Long.MAX_VALUE;
 
         for (User eng : engineers) {
-            long count = ticketRepository.findByAssignedEngineerId(eng.getId(),
-                    org.springframework.data.domain.Pageable.unpaged()).getTotalElements();
+            long count = ticketRepository.countByAssignedEngineerId(eng.getId());
             if (count < minCount) {
                 minCount = count;
                 leastLoaded = eng;

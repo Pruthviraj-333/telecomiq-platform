@@ -13,4 +13,5 @@ public class TicketUpdateRequest {
 
     private String status;
     private String resolvedBy;
+    private Long assignedEngineerId;
 }

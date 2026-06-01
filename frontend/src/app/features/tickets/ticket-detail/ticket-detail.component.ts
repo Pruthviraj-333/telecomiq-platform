@@ -14,7 +14,9 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatChipsModule } from '@angular/material/chips';
 import { TicketService } from '../../../core/services/ticket.service';
 import { AuthService } from '../../../core/services/auth.service';
+import { UserService } from '../../../core/services/user.service';
 import { Ticket, TicketComment } from '../../../shared/models/ticket.model';
+import { User } from '../../../shared/models/user.model';
 
 @Component({
   selector: 'app-ticket-detail',
@@ -30,12 +32,15 @@ export class TicketDetailComponent implements OnInit {
   newStatus = '';
   loading = true;
   ticketId!: number;
+  engineers: User[] = [];
+  selectedEngineerId: number | null = null;
 
   constructor(
     private route: ActivatedRoute,
     public router: Router,
     private ticketService: TicketService,
     public authService: AuthService,
+    private userService: UserService,
     private snackBar: MatSnackBar
   ) {}
 
@@ -43,12 +48,27 @@ export class TicketDetailComponent implements OnInit {
     this.ticketId = Number(this.route.snapshot.paramMap.get('id'));
     this.loadTicket();
     this.loadComments();
+    if (this.authService.isAdmin()) {
+      this.loadEngineers();
+    }
   }
 
   loadTicket(): void {
     this.ticketService.getTicketById(this.ticketId).subscribe({
-      next: (t) => { this.ticket = t; this.newStatus = t.status; this.loading = false; },
+      next: (t) => {
+        this.ticket = t;
+        this.newStatus = t.status;
+        this.selectedEngineerId = t.assignedEngineerId || null;
+        this.loading = false;
+      },
       error: () => { this.loading = false; this.router.navigate(['/tickets']); }
+    });
+  }
+
+  loadEngineers(): void {
+    this.userService.getEngineers().subscribe({
+      next: (engs) => this.engineers = engs,
+      error: () => this.snackBar.open('Failed to load engineers', 'Close', { duration: 3000 })
     });
   }
 
@@ -76,6 +96,18 @@ export class TicketDetailComponent implements OnInit {
     this.ticketService.escalateTicket(this.ticketId, 'Customer: AI Solution Did Not Help').subscribe({
       next: (t) => { this.ticket = t; this.snackBar.open('Ticket escalated', 'Close', { duration: 3000 }); },
       error: () => this.snackBar.open('Failed to escalate', 'Close', { duration: 3000 })
+    });
+  }
+
+  assignEngineer(): void {
+    if (!this.selectedEngineerId) return;
+    this.ticketService.updateTicket(this.ticketId, { assignedEngineerId: this.selectedEngineerId }).subscribe({
+      next: (t) => {
+        this.ticket = t;
+        this.selectedEngineerId = t.assignedEngineerId || null;
+        this.snackBar.open('Engineer assigned successfully', 'Close', { duration: 3000 });
+      },
+      error: () => this.snackBar.open('Failed to assign engineer', 'Close', { duration: 3000 })
     });
   }
 
