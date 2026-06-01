@@ -57,7 +57,7 @@ public class DashboardService {
                 .totalTickets(total)
                 .openTickets(open + aiAnalyzed + aiSuggested)
                 .escalatedTickets(escalated)
-                .resolvedTickets(resolved)
+                .resolvedTickets(resolved + closed)
                 .closedTickets(closed)
                 .criticalTickets(critical)
                 .inProgressTickets(inProgress)
