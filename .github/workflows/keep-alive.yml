@@ -1,0 +1,29 @@
+name: Keep Services Awake
+
+on:
+  schedule:
+    # Run every 12 minutes (Render sleeps after 15 minutes of inactivity)
+    - cron: '*/12 * * * *'
+  workflow_dispatch: # Allows manual triggering from GitHub UI
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Backend Service
+        run: |
+          if [ -n "${{ secrets.RENDER_BACKEND_URL }}" ]; then
+            echo "Pinging backend at ${{ secrets.RENDER_BACKEND_URL }}/actuator/health"
+            curl -s -f -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) TelecomIQ-KeepAlive/1.0" "${{ secrets.RENDER_BACKEND_URL }}/actuator/health" || echo "Backend ping failed, but service was touched."
+          else
+            echo "Warning: RENDER_BACKEND_URL secret is not set. Please add it to your GitHub Repository Secrets."
+          fi
+
+      - name: Ping AI Service
+        run: |
+          if [ -n "${{ secrets.RENDER_AI_SERVICE_URL }}" ]; then
+            echo "Pinging AI service at ${{ secrets.RENDER_AI_SERVICE_URL }}/health"
+            curl -s -f -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) TelecomIQ-KeepAlive/1.0" "${{ secrets.RENDER_AI_SERVICE_URL }}/health" || echo "AI service ping failed, but service was touched."
+          else
+            echo "Warning: RENDER_AI_SERVICE_URL secret is not set. Please add it to your GitHub Repository Secrets."
+          fi
