@@ -37,9 +37,9 @@
 3. Connect your GitHub repository
 4. Configure:
    - **Name**: `telecomiq-backend`
-   - **Root Directory**: `backend`
+   - **Root Directory**: `telecomIQ_backend`
    - **Runtime**: `Docker`
-   - **Dockerfile Path**: `../docker/backend.Dockerfile`
+   - **Dockerfile Path**: `Dockerfile`
    - **Instance Type**: Free
 
 ### Environment Variables on Render
@@ -49,7 +49,7 @@ DB_USERNAME=postgres.[project-ref]
 DB_PASSWORD=[your-supabase-password]
 JWT_SECRET=[generate-a-base64-256-bit-key]
 JWT_EXPIRATION=86400000
-AI_SERVICE_URL=https://telecomiq-ai.onrender.com
+AI_SERVICE_URL=https://telecomiq-ai-lyl5.onrender.com
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
 SMTP_USERNAME=[your-gmail]
@@ -71,9 +71,9 @@ openssl rand -base64 32
 1. Click **"New"** → **"Web Service"**
 2. Configure:
    - **Name**: `telecomiq-ai`
-   - **Root Directory**: `ai-service`
+   - **Root Directory**: `telecomIQ_ai_service`
    - **Runtime**: `Docker`
-   - **Dockerfile Path**: `../docker/ai-service.Dockerfile`
+   - **Dockerfile Path**: `Dockerfile`
    - **Instance Type**: Free
 
 ### Environment Variables
@@ -94,7 +94,7 @@ GROQ_MODEL=llama-3.3-70b-versatile
 3. Import your GitHub repository
 4. Configure:
    - **Framework Preset**: Other
-   - **Root Directory**: `frontend`
+   - **Root Directory**: `telecomIQ_frontend`
    - **Build Command**: `npm run build -- --configuration=production`
    - **Output Directory**: `dist/frontend/browser`
 
@@ -103,7 +103,7 @@ Before deploying, update `frontend/src/environments/environment.prod.ts`:
 ```typescript
 export const environment = {
   production: true,
-  apiUrl: 'https://telecomiq-backend.onrender.com/api'
+  apiUrl: 'https://telecomiq-backend-mjaj.onrender.com/api'
 };
 ```
 
